@@ -120,3 +120,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@layer utilities {
+  .card-shadow {
+    @apply rounded-xl border-2 border-gray-900 bg-white/80 shadow-[4px_4px_0_0_rgba(55,65,81,1)];
+  }
+}
