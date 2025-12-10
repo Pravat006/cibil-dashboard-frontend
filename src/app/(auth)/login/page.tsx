@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Eye, EyeOff, X } from 'lucide-react';
+import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,8 +17,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
+
     fullName: z.string().min(2, {
         message: "Full name must be at least 2 characters.",
     }),
@@ -33,6 +35,8 @@ const formSchema = z.object({
 export default function SignUpPage() {
     const [showPassword, setShowPassword] = useState(false);
 
+    const router = useRouter()
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -44,11 +48,15 @@ export default function SignUpPage() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
+        if (values) {
+            router.push("/")
+        }
+
     }
 
     return (
-        <div className="    flex items-center justify-center">
-            <div className="w-full max-w-7xl bg-background/50 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row justify-between">
+        <div className="flex items-center justify-center">
+            <div className="w-full max-w-7xl bg-background/60  rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row justify-between">
 
                 <div className="w-full  lg:w-2/5 p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center">
                     <div className="">
@@ -76,7 +84,7 @@ export default function SignUpPage() {
                                             <Input
                                                 placeholder="Amélie Laurent"
                                                 {...field}
-                                                className="w-full px-6 py-4 bg-background rounded-full border-none focus:outline-none focus:ring-2 focus:ring-yellow-400 transition h-auto"
+                                                className=" w-full px-6 py-4 bg-background rounded-full border-none focus:outline-none focus:ring-2 focus:ring-yellow-400 transition h-auto "
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -95,7 +103,7 @@ export default function SignUpPage() {
                                                 type="email"
                                                 placeholder="amelielaurent7622@gmail.com"
                                                 {...field}
-                                                className="w-full px-6 py-4 bg-background rounded-full border-none focus:outline-none focus:ring-2 focus:ring-yellow-400 transition h-auto"
+                                                className="w-full px-6 py-4 bg-background rounded-full border-none focus:outline-none focus:ring-2 focus:ring-yellow-400 transition h-auto "
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -115,7 +123,7 @@ export default function SignUpPage() {
                                                     type={showPassword ? "text" : "password"}
                                                     placeholder="••••••••••••••••••••"
                                                     {...field}
-                                                    className="w-full px-6 py-4 bg-background rounded-full border-none focus:outline-none focus:ring-2 focus:ring-yellow-400 transition pr-12 h-auto"
+                                                    className="w-full px-6 py-4 bg-background rounded-full border-none focus:outline-none focus:ring-2 focus:ring-yellow-400 transition pr-12 h-auto "
                                                 />
                                                 <Button
                                                     type="button"
@@ -168,7 +176,6 @@ export default function SignUpPage() {
                             </div>
                         </div>
                     </Form>
-
                     <div className="mt-8 flex justify-between items-center text-sm">
                         <div className="text-gray-600">
                             Have any account?{' '}
@@ -185,9 +192,7 @@ export default function SignUpPage() {
                 {/* Right Side - Image Section */}
                 <div className="w-full lg:w-2/3 bg-linear-to-br p-8 relative overflow-hidden hidden lg:block">
                     <div className="relative h-full rounded-3xl overflow-hidden ">
-
                         <div className="absolute inset-0 bg-linear-to-br from-black/20 via-transparent to-black/10 pointer-events-none z-1" />
-
                         <Image
                             src="https://cdn.pixabay.com/photo/2021/07/10/11/53/credit-card-6401275_1280.png"
                             alt="Team Collaboration"
@@ -197,7 +202,6 @@ export default function SignUpPage() {
                         />
                     </div>
                 </div>
-
             </div>
         </div>
     );
